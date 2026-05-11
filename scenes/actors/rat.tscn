@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://csn0q0jchtktp"]
+
+[ext_resource type="PackedScene" uid="uid://ctmxooc7031n1" path="res://scenes/actors/npc.tscn" id="1_xjfy7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xjfy7"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xjfy7"]
+radius = 0.25
+height = 1.0
+
+[node name="Rat" unique_id=304614459 instance=ExtResource("1_xjfy7")]
+
+[node name="CollisionShape3D" parent="." index="0" unique_id=1031290408]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ModelContainer" parent_id_path=PackedInt32Array(953424324) index="0" unique_id=1420314693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_xjfy7")
+mesh = SubResource("CapsuleMesh_xjfy7")
+
+[node name="Interactable" parent="." index="4" unique_id=789451488 node_paths=PackedStringArray("root_node")]
+root_node = NodePath("..")

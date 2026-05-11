@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://hmvaahiva2fr"]
+
+[ext_resource type="Script" uid="uid://c2jg6akbfps1" path="res://scripts/actor/actor.gd" id="1_0qi0m"]
+[ext_resource type="Script" uid="uid://dwfiyhw38hft0" path="res://scripts/navigation/character_body_navigation_agent_3D.gd" id="2_35erh"]
+[ext_resource type="Script" uid="uid://6v728tos10b0" path="res://scripts/fsm/state_machine.gd" id="4_jo868"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ti3oo"]
+
+[node name="Actor" type="CharacterBody3D" unique_id=304614459 node_paths=PackedStringArray("agent", "state_machine")]
+script = ExtResource("1_0qi0m")
+agent = NodePath("CharacterBodyNavigationAgent3D")
+state_machine = NodePath("StateMachine")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1031290408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ti3oo")
+disabled = true
+
+[node name="CharacterBodyNavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2044661202]
+script = ExtResource("2_35erh")
+metadata/_custom_type_script = "uid://dwfiyhw38hft0"
+
+[node name="ModelContainer" type="Node3D" parent="." unique_id=953424324]
+
+[node name="StateMachine" type="Node" parent="." unique_id=2101409738]
+script = ExtResource("4_jo868")
+metadata/_custom_type_script = "uid://6v728tos10b0"

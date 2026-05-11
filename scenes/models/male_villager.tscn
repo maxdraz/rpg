@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://f2oqqhd0dcit"]
+
+[ext_resource type="PackedScene" uid="uid://cnqsn57osxnbn" path="res://assets/MaleVillager.fbx" id="1_670jy"]
+
+[node name="MaleVillager" unique_id=461883469 instance=ExtResource("1_670jy")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(803435667) index="0" unique_id=541082135]
+bones/0/position = Vector3(0, 0, 1.3436205)
+bones/1/rotation = Quaternion(1.5800927e-08, -9.480517e-10, -9.480519e-10, 1)
+bones/2/rotation = Quaternion(-1.7763568e-15, 1.1102232e-16, 2.996019e-17, 1)
+bones/4/rotation = Quaternion(0.0002021196, -0.00305036, 0.9985022, -0.054627158)
+bones/5/rotation = Quaternion(0.06755899, -0.0007927475, -0.0047293426, 0.9977038)
+bones/6/rotation = Quaternion(-0.10039768, -0.0013570602, -0.10836969, 0.9890271)
+bones/8/rotation = Quaternion(-0.0013357501, -0.023202347, 0.9989487, 0.0395146)
+bones/9/rotation = Quaternion(0.11396794, 0.00064958376, -0.0051844446, 0.9934707)
+bones/10/rotation = Quaternion(-0.090666324, 0.008096728, 0.10422166, 0.9903797)
+bones/12/rotation = Quaternion(-0.00073236285, 0.020478664, 0.9997891, -0.0013500208)
+bones/13/rotation = Quaternion(-0.046537027, 3.4194294e-05, -0.007605335, 0.99888766)
+bones/14/rotation = Quaternion(0.65574116, 0.059658937, 0.07687044, 0.74868906)
+bones/16/rotation = Quaternion(0.0006780437, 0.020252308, 0.99978644, 0.00406239)
+bones/17/rotation = Quaternion(-0.04578929, -0.00084359164, 0.013384214, 0.99886113)
+bones/18/rotation = Quaternion(0.26052627, 0.68192774, 0.62758213, 0.27063155)
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=1531550513]
+autoplay = &"Armature|Idle"

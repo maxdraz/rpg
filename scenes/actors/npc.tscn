@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ctmxooc7031n1"]
+
+[ext_resource type="PackedScene" uid="uid://hmvaahiva2fr" path="res://scenes/actors/actor.tscn" id="1_gf1j8"]
+[ext_resource type="Script" uid="uid://cfc62oqrsgg1y" path="res://scripts/interactable/interactable.gd" id="2_ydcbx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hl334"]
+size = Vector3(1, 2.0132446, 1)
+
+[node name="Npc" unique_id=304614459 instance=ExtResource("1_gf1j8")]
+
+[node name="Interactable" type="Area3D" parent="." index="4" unique_id=789451488]
+script = ExtResource("2_ydcbx")
+metadata/_custom_type_script = "uid://cfc62oqrsgg1y"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" index="0" unique_id=1875240607]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0022888, 0)
+shape = SubResource("BoxShape3D_hl334")

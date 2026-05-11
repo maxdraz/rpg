@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dlrk0hkpq35vu"]
+
+[ext_resource type="PackedScene" uid="uid://hmvaahiva2fr" path="res://scenes/actor.tscn" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://f2oqqhd0dcit" path="res://scenes/male_villager.tscn" id="2_g2els"]
+[ext_resource type="Script" uid="uid://6v728tos10b0" path="res://scripts/fsm/state_machine.gd" id="3_qlg0r"]
+[ext_resource type="Script" uid="uid://kfyvyu0hwn4j" path="res://scripts/fsm/states/idle_state.gd" id="4_tuyoq"]
+[ext_resource type="Script" uid="uid://bmyxl4ywaaj87" path="res://scripts/fsm/states/move_to_state.gd" id="5_fjrip"]
+
+[node name="Player" unique_id=304614459 node_paths=PackedStringArray("state_machine") instance=ExtResource("1_g2els")]
+state_machine = NodePath("StateMachine")
+
+[node name="CharacterBodyNavigationAgent3D" parent="." index="1" unique_id=2044661202 node_paths=PackedStringArray("body")]
+body = NodePath("..")
+
+[node name="PlayerController" parent="." index="2" unique_id=1814757023 node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+
+[node name="MaleVillager" parent="." index="3" unique_id=461883469 instance=ExtResource("2_g2els")]
+
+[node name="StateMachine" type="Node" parent="." index="4" unique_id=523563351]
+script = ExtResource("3_qlg0r")
+metadata/_custom_type_script = "uid://6v728tos10b0"
+
+[node name="IdleState" type="Node" parent="StateMachine" index="0" unique_id=1914127485]
+script = ExtResource("4_tuyoq")
+metadata/_custom_type_script = "uid://kfyvyu0hwn4j"
+
+[node name="MoveToState" type="Node" parent="StateMachine" index="1" unique_id=973584115 node_paths=PackedStringArray("agent")]
+script = ExtResource("5_fjrip")
+agent = NodePath("../../CharacterBodyNavigationAgent3D")
+metadata/_custom_type_script = "uid://bmyxl4ywaaj87"

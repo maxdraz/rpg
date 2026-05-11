@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://ca22xmjs16asj"]
+
+[ext_resource type="PackedScene" uid="uid://cku1cpn1dushk" path="res://assets/Low_Poly_Human_V2.fbx" id="1_y7icl"]
+
+[node name="Low_Poly_Human_V2" unique_id=491149630 instance=ExtResource("1_y7icl")]
