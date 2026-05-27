@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://csn0q0jchtktp"]
+
+[ext_resource type="PackedScene" uid="uid://ckiu58afvyd2h" path="res://scenes/actors/actor.tscn" id="1_0vt7d"]
+[ext_resource type="PackedScene" uid="uid://c6ty5ihwoij18" path="res://scenes/mobs/rat.tscn" id="2_0xo0w"]
+
+[node name="Rat" unique_id=925541081 instance=ExtResource("1_0vt7d")]
+
+[node name="Rat" parent="." index="2" unique_id=792219470 instance=ExtResource("2_0xo0w")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0.5)

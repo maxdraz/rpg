@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ckiu58afvyd2h"]
+
+[ext_resource type="Script" uid="uid://dguuhsa6rqqtf" path="res://scripts/entity/entity.gd" id="1_8f0le"]
+[ext_resource type="Script" uid="uid://bqryucrchpqb4" path="res://scripts/navigation/character_body_navigation_agent_3D.gd" id="2_sfkvm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kilaq"]
+
+[node name="Actor" type="CharacterBody3D" unique_id=925541081]
+script = ExtResource("1_8f0le")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2048301690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_kilaq")
+
+[node name="CharacterBodyNavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=818474830]
+script = ExtResource("2_sfkvm")
+metadata/_custom_type_script = "uid://bqryucrchpqb4"

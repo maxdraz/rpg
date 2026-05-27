@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dlrk0hkpq35vu"]
+
+[ext_resource type="PackedScene" uid="uid://ckiu58afvyd2h" path="res://scenes/actors/actor.tscn" id="1_tgyl1"]
+[ext_resource type="Texture2D" uid="uid://caxhavyincuuk" path="res://assets/textures/prototyping/Dark/texture_04.png" id="2_7860b"]
+[ext_resource type="Script" uid="uid://q4mbtjtefrn5" path="res://scripts/input/input_controller.gd" id="2_poj5f"]
+[ext_resource type="PackedScene" uid="uid://26hvkcv6ihpb" path="res://scenes/humans/villager_male.tscn" id="3_0w4p8"]
+[ext_resource type="Script" uid="uid://c4bf2mwqfxscn" path="res://scripts/entity/player_controller.gd" id="3_4y4uh"]
+[ext_resource type="Script" uid="uid://b7vvlnx3y3ccr" path="res://addons/fsm/state_machine.gd" id="4_7wueq"]
+[ext_resource type="Script" uid="uid://cqbljugltkxwj" path="res://scripts/fsm/states/idle_state.gd" id="5_8y416"]
+[ext_resource type="Script" uid="uid://2ppsm3ulit15" path="res://scripts/fsm/states/move_to_state.gd" id="6_7860b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xx81n"]
+albedo_texture = ExtResource("2_7860b")
+texture_filter = 2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tuyoq"]
+
+[node name="Actor" unique_id=925541081 instance=ExtResource("1_tgyl1")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2" unique_id=885249629]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_xx81n")
+mesh = SubResource("CapsuleMesh_tuyoq")
+
+[node name="VillagerMale" parent="." index="3" unique_id=1555066614 instance=ExtResource("3_0w4p8")]
+
+[node name="InputController" type="Node" parent="." index="4" unique_id=1894049777]
+script = ExtResource("2_poj5f")
+metadata/_custom_type_script = "uid://q4mbtjtefrn5"
+
+[node name="PlayerController" type="Node" parent="." index="5" unique_id=1759123555 node_paths=PackedStringArray("input_controller", "state_machine")]
+script = ExtResource("3_4y4uh")
+input_controller = NodePath("../InputController")
+state_machine = NodePath("../StateMachine")
+metadata/_custom_type_script = "uid://c4bf2mwqfxscn"
+
+[node name="StateMachine" type="Node" parent="." index="6" unique_id=1826906838]
+script = ExtResource("4_7wueq")
+metadata/_custom_type_script = "uid://b7vvlnx3y3ccr"
+
+[node name="IdleState" type="Node" parent="StateMachine" index="0" unique_id=1265550991]
+script = ExtResource("5_8y416")
+metadata/_custom_type_script = "uid://cqbljugltkxwj"
+
+[node name="MoveToState" type="Node" parent="StateMachine" index="1" unique_id=1218643682]
+script = ExtResource("6_7860b")
+metadata/_custom_type_script = "uid://2ppsm3ulit15"

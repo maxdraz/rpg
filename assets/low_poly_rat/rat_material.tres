@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cc501gweo5car"]
+
+[ext_resource type="Texture2D" uid="uid://c7wgj08pndsxx" path="res://assets/low_poly_rat/textures/material_baseColor.png" id="1_h8wv2"]
+
+[resource]
+albedo_texture = ExtResource("1_h8wv2")
+texture_filter = 0

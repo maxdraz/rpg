@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://1kpcetst6wl4"]
+
+[ext_resource type="Texture2D" uid="uid://cvimhqpid4nhr" path="res://assets/villager_male/villager_male.png" id="1_o6u3d"]
+
+[resource]
+resource_name = "Material"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
+albedo_texture = ExtResource("1_o6u3d")
+emission_enabled = true
+texture_filter = 2
