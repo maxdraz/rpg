@@ -21,6 +21,9 @@ vertices = PackedVector3Array(-24.5, 0.10000008, -24.5, -24.5, 0.10000008, 24.5,
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 cell_height = 0.05
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_sugp2"]
+size = Vector3(50, 1, 50)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wfyh"]
 albedo_texture = ExtResource("1_0wfyh")
 uv1_triplanar = true
@@ -41,8 +44,13 @@ shadow_enabled = true
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=436478658]
 navigation_mesh = SubResource("NavigationMesh_o5qli")
 
-[node name="GroundMesh" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=1177689187]
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D" unique_id=2063829339]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D" unique_id=1815389258]
+shape = SubResource("BoxShape3D_sugp2")
+
+[node name="GroundMesh" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D" unique_id=1177689187]
 material_override = SubResource("StandardMaterial3D_0wfyh")
 mesh = SubResource("BoxMesh_sgp6g")
 

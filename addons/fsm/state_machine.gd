@@ -17,7 +17,7 @@ func _ready() -> void:
 
 
 func transition_to(state_class: Script, params: Variant) -> void:
-	if !state_class or state_class == current_state.get_script(): return
+	if !state_class or (current_state && state_class == current_state.get_script()): return
 	var state = states.get(state_class)
 	if !state: return
 	if current_state:
