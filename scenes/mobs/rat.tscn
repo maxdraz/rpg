@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://c6ty5ihwoij18"]
-
-[ext_resource type="PackedScene" uid="uid://bm3l7ov8ymxxs" path="res://assets/low_poly_rat/rat.gltf" id="1_yxube"]
-
-[node name="Rat" unique_id=792219470 instance=ExtResource("1_yxube")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)

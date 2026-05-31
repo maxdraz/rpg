@@ -1,9 +1,29 @@
-[gd_scene format=3 uid="uid://csn0q0jchtktp"]
+[gd_scene format=3 uid="uid://c0rgguixsgwm2"]
 
-[ext_resource type="PackedScene" uid="uid://ckiu58afvyd2h" path="res://scenes/actors/actor.tscn" id="1_0vt7d"]
-[ext_resource type="PackedScene" uid="uid://c6ty5ihwoij18" path="res://scenes/mobs/rat.tscn" id="2_0xo0w"]
+[ext_resource type="PackedScene" uid="uid://ckiu58afvyd2h" path="res://scenes/actors/actor.tscn" id="1_pmwci"]
+[ext_resource type="PackedScene" uid="uid://c6ty5ihwoij18" path="res://scenes/mobs/mob_rat.tscn" id="2_172ra"]
+[ext_resource type="Script" uid="uid://cout2apou2hg" path="res://scripts/interaction/interactable.gd" id="3_ja7ka"]
+[ext_resource type="Script" uid="uid://bs02oj5rshh4r" path="res://scripts/interaction/interaction_data_attack.gd" id="4_eotln"]
 
-[node name="Rat" unique_id=925541081 instance=ExtResource("1_0vt7d")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_172ra"]
 
-[node name="Rat" parent="." index="2" unique_id=792219470 instance=ExtResource("2_0xo0w")]
+[node name="Rat" unique_id=925541081 instance=ExtResource("1_pmwci")]
+
+[node name="MobRat" parent="." index="2" unique_id=792219470 instance=ExtResource("2_172ra")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0.5)
+
+[node name="Interactable" type="Area3D" parent="." index="3" unique_id=279717106 node_paths=PackedStringArray("interactions")]
+script = ExtResource("3_ja7ka")
+interactions = [NodePath("../Interactions/InteractionAttack")]
+metadata/_custom_type_script = "uid://cout2apou2hg"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" index="0" unique_id=1337001033]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_172ra")
+
+[node name="Interactions" type="Node" parent="." index="4" unique_id=333527131]
+
+[node name="InteractionAttack" type="Node" parent="Interactions" index="0" unique_id=195332179 node_paths=PackedStringArray("entity")]
+script = ExtResource("4_eotln")
+entity = NodePath("../..")
+metadata/_custom_type_script = "uid://bs02oj5rshh4r"

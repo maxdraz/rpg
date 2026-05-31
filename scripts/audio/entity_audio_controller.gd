@@ -11,7 +11,6 @@ func _ready() -> void:
 
 
 func _on_left_click(event: InputEvent) -> void:
-	print("playing left click")
 	play(click)
 
 

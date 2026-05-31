@@ -1,0 +1,25 @@
+[gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://c3au8dhkcjrf7"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rumgg"]
+animation = &"Armature|Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jklsx"]
+animation = &"Armature|Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_awntw"]
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_awyhk"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ot75p"]
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[resource]
+states/Armature|Idle/node = SubResource("AnimationNodeAnimation_rumgg")
+states/Armature|Idle/position = Vector2(352, 63)
+states/Armature|Walk/node = SubResource("AnimationNodeAnimation_jklsx")
+states/Armature|Walk/position = Vector2(558, 63)
+transitions = ["Armature|Idle", "Armature|Walk", SubResource("AnimationNodeStateMachineTransition_awntw"), "Start", "Armature|Idle", SubResource("AnimationNodeStateMachineTransition_awyhk"), "Armature|Walk", "Armature|Idle", SubResource("AnimationNodeStateMachineTransition_ot75p")]

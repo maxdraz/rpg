@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cvo7w7v04f75t"]
 
-[ext_resource type="Texture2D" uid="uid://caxhavyincuuk" path="res://assets/textures/prototyping/Dark/texture_04.png" id="1_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://0stlsxgugj3v" path="res://assets/textures/prototyping/Dark/texture_06.png" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://c0rgguixsgwm2" path="res://scenes/actors/rat.tscn" id="2_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlrk0hkpq35vu" path="res://scenes/actors/player.tscn" id="2_sugp2"]
-[ext_resource type="PackedScene" uid="uid://csn0q0jchtktp" path="res://scenes/actors/rat.tscn" id="3_sugp2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -12,8 +12,10 @@ ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 sky_material = SubResource("ProceduralSkyMaterial_0wfyh")
 
 [sub_resource type="Environment" id="Environment_jyhfs"]
-background_mode = 2
+background_mode = 1
 sky = SubResource("Sky_sugp2")
+ambient_light_source = 2
+ambient_light_color = Color(0.5609553, 0.5609549, 0.5609547, 1)
 tonemap_mode = 2
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_o5qli"]
@@ -55,16 +57,17 @@ material_override = SubResource("StandardMaterial3D_0wfyh")
 mesh = SubResource("BoxMesh_sgp6g")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1281474541]
-transform = Transform3D(1, 0, 0, 0, 0.8017861, 0.5976112, 0, -0.5976112, 0.8017861, 0, 5.510412, 3.981163)
+transform = Transform3D(1, 0, 0, 0, 0.80434453, 0.5941632, 0, -0.5941632, 0.80434453, 0, 9.758943, 7.609801)
 
-[node name="Rat" parent="." unique_id=1297991366 instance=ExtResource("3_sugp2")]
-transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 3.492233, 0, -1.6488745)
+[node name="Camera3D2" type="Camera3D" parent="." unique_id=1705657550]
+transform = Transform3D(1, 0, 0, 0, 0.80434453, 0.5941632, 0, -0.5941632, 0.80434453, -0.1530515, 3.452652, 2.9879708)
+current = true
 
-[node name="Rat2" parent="." unique_id=1313675573 instance=ExtResource("3_sugp2")]
-transform = Transform3D(0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, 0.7071067, -3.781807, 0, -7.4081345)
-
-[node name="Rat3" parent="." unique_id=1297915628 instance=ExtResource("3_sugp2")]
-transform = Transform3D(0.9659258, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.9659258, 3.487836, -9.536743e-07, -9.479443)
-
-[node name="Actor" parent="." unique_id=925541081 instance=ExtResource("2_sugp2")]
+[node name="Player" parent="." unique_id=1567233473 instance=ExtResource("2_sugp2")]
 transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, -0.097546816, 0, -0.034336686)
+
+[node name="Rat" parent="." unique_id=925541081 instance=ExtResource("2_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -3)
+
+[node name="Rat2" parent="." unique_id=1513790763 instance=ExtResource("2_jyhfs")]
+transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, 4, 0, -3)

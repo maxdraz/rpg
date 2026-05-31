@@ -9,7 +9,7 @@ func init(params: Variant) -> void:
 
 
 func enter() -> void:
-	print(str(self.get_script()) + " entered")
+	print(name + " entered")
 	pass
 
 
@@ -22,10 +22,11 @@ func physics_process(delta: float) -> void:
 
 
 func cancel() -> void:
-	print(str(self.get_script()) + " canceled")
+	print(name + " canceled")
 	pass
 
 
 func exit() -> void:
-	print(str(self.get_script()) + " exited")
+	print(name + " exited")
+	exited.emit()
 	pass

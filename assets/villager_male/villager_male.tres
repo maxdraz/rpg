@@ -7,5 +7,7 @@ resource_name = "Material"
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
 albedo_texture = ExtResource("1_o6u3d")
+metallic_specular = 0.0
+roughness = 0.0
 emission_enabled = true
 texture_filter = 2

@@ -13,7 +13,12 @@ func _ready() -> void:
 func _on_left_click(event: InputEvent) -> void:
 	var result = raycast_from_mouse()
 	if !result or result.size() <= 0: return
-	state_machine.transition_to(MoveToState, MoveToStateParams.new(result.position))
+	if result.collider is Entity:
+		var params = CombatStateParams.new(self, result.collider)
+		state_machine.transition_to(CombatState, params)
+	else:
+		var params = MoveToStateParams.new(result.position)
+		state_machine.transition_to(MoveToState, MoveToStateParams.new(result.position))
 
 func _on_right_click(event: InputEvent) -> void:
 	pass

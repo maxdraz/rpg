@@ -11,6 +11,7 @@ script = ExtResource("1_8f0le")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2048301690]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_kilaq")
+disabled = true
 
 [node name="CharacterBodyNavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=818474830 node_paths=PackedStringArray("body")]
 script = ExtResource("2_sfkvm")

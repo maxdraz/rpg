@@ -17,11 +17,17 @@ func _ready() -> void:
 
 
 func transition_to(state_class: Script, params: Variant) -> void:
-	if !state_class or (current_state && state_class == current_state.get_script()): return
+	if !state_class: return
 	var state = states.get(state_class)
 	if !state: return
 	if current_state:
 		current_state.cancel()
+		current_state.exited.disconnect(_on_state_exited)
 	current_state = state
+	current_state.exited.connect(_on_state_exited)
 	current_state.init(params)
 	current_state.enter()
+
+
+func _on_state_exited() -> void:
+	transition_to(default_state.get_script(), null)
