@@ -1,5 +1,5 @@
 class_name StateMachine
-extends Node
+extends EntityComponent
 
 @export var default_state: State
 
@@ -16,6 +16,16 @@ func _ready() -> void:
 		transition_to(default_state.get_script(), null)
 
 
+func _process(delta: float) -> void:
+	if !current_state: return
+	current_state.process(delta)
+
+
+func _physics_process(delta: float) -> void:
+	if !current_state: return
+	current_state.physics_process(delta)
+
+
 func transition_to(state_class: Script, params: Variant) -> void:
 	if !state_class: return
 	var state = states.get(state_class)
@@ -30,4 +40,5 @@ func transition_to(state_class: Script, params: Variant) -> void:
 
 
 func _on_state_exited() -> void:
+	current_state = null
 	transition_to(default_state.get_script(), null)

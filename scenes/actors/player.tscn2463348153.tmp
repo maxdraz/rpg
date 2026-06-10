@@ -9,11 +9,8 @@
 [ext_resource type="Script" uid="uid://cqbljugltkxwj" path="res://scripts/fsm/states/idle_state.gd" id="5_8y416"]
 [ext_resource type="Script" uid="uid://2ppsm3ulit15" path="res://scripts/fsm/states/move_to_state.gd" id="6_7860b"]
 [ext_resource type="Script" uid="uid://2drsartahap2" path="res://scripts/audio/entity_audio_controller.gd" id="9_0w4p8"]
-[ext_resource type="Script" uid="uid://b71rcvdpsb4fm" path="res://scripts/fsm/states/combat_state.gd" id="9_c4rn8"]
 [ext_resource type="AudioStream" uid="uid://ckkypcs3lmi2t" path="res://assets/audio/sfx/click_1.wav" id="10_wl55n"]
-[ext_resource type="Script" uid="uid://ohfccdbtgotx" path="res://scripts/event_bus/event_bus_component.gd" id="12_nmlhc"]
-[ext_resource type="Script" uid="uid://6fa5kljvhuhy" path="res://scripts/entity/components/combat_component.gd" id="13_nmlhc"]
-[ext_resource type="Script" uid="uid://b2ts4tvfy7mmb" path="res://scripts/entity/components/movement_component.gd" id="13_ypltb"]
+[ext_resource type="Script" uid="uid://cout2apou2hg" path="res://scripts/interaction/interactable.gd" id="11_kggx2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xx81n"]
 albedo_texture = ExtResource("2_7860b")
@@ -26,10 +23,13 @@ random_pitch = 1.7817973
 streams_count = 1
 stream_0/stream = ExtResource("10_wl55n")
 
-[node name="Player" unique_id=925541081 instance=ExtResource("1_tgyl1")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_kggx2"]
+size = Vector3(1, 2.591919, 1)
+
+[node name="Player" unique_id=925541081 node_paths=PackedStringArray("state_machine") instance=ExtResource("1_tgyl1")]
+state_machine = NodePath("StateMachine")
 
 [node name="CharacterBodyNavigationAgent3D" parent="." index="1" unique_id=818474830]
-target_desired_distance = 2.0
 speed = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2" unique_id=885249629]
@@ -44,9 +44,8 @@ mesh = SubResource("CapsuleMesh_tuyoq")
 script = ExtResource("2_poj5f")
 metadata/_custom_type_script = "uid://q4mbtjtefrn5"
 
-[node name="PlayerController" type="Node3D" parent="." index="5" unique_id=595895052 node_paths=PackedStringArray("entity", "input_controller", "state_machine")]
+[node name="PlayerController" type="Node3D" parent="." index="5" unique_id=595895052 node_paths=PackedStringArray("input_controller", "state_machine")]
 script = ExtResource("3_4y4uh")
-entity = NodePath("..")
 input_controller = NodePath("../InputController")
 state_machine = NodePath("../StateMachine")
 metadata/_custom_type_script = "uid://c4bf2mwqfxscn"
@@ -56,21 +55,16 @@ script = ExtResource("4_7wueq")
 default_state = NodePath("IdleState")
 metadata/_custom_type_script = "uid://b7vvlnx3y3ccr"
 
-[node name="IdleState" type="Node" parent="StateMachine" index="0" unique_id=1544489318]
+[node name="IdleState" type="Node" parent="StateMachine" index="0" unique_id=1265550991 node_paths=PackedStringArray("animatable")]
 script = ExtResource("5_8y416")
+animatable = NodePath("../../VillagerMale")
 metadata/_custom_type_script = "uid://cqbljugltkxwj"
 
-[node name="MoveToState" type="Node" parent="StateMachine" index="1" unique_id=801222355 node_paths=PackedStringArray("movement")]
+[node name="MoveToState" type="Node" parent="StateMachine" index="1" unique_id=1218643682 node_paths=PackedStringArray("agent", "animatable")]
 script = ExtResource("6_7860b")
-movement = NodePath("../../Components/MovementComponent")
+agent = NodePath("../../CharacterBodyNavigationAgent3D")
+animatable = NodePath("../../VillagerMale")
 metadata/_custom_type_script = "uid://2ppsm3ulit15"
-
-[node name="CombatState" type="Node" parent="StateMachine" index="2" unique_id=883307174 node_paths=PackedStringArray("entity", "movement", "combat")]
-script = ExtResource("9_c4rn8")
-entity = NodePath("../..")
-movement = NodePath("../../Components/MovementComponent")
-combat = NodePath("../../Components/CombatComponent")
-metadata/_custom_type_script = "uid://b71rcvdpsb4fm"
 
 [node name="EntityAudioController" type="Node" parent="." index="7" unique_id=909814821 node_paths=PackedStringArray("audio_stream_player", "audio_stream_player_3d", "input")]
 script = ExtResource("9_0w4p8")
@@ -84,20 +78,12 @@ metadata/_custom_type_script = "uid://2drsartahap2"
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="EntityAudioController" index="1" unique_id=1786544276]
 
-[node name="Components" type="Node" parent="." index="8" unique_id=1593356854]
+[node name="Interactable" type="Area3D" parent="." index="8" unique_id=974601469]
+script = ExtResource("11_kggx2")
+metadata/_custom_type_script = "uid://cout2apou2hg"
 
-[node name="EventBusComponent" type="Node" parent="Components" index="0" unique_id=1062203156]
-script = ExtResource("12_nmlhc")
-metadata/_custom_type_script = "uid://ohfccdbtgotx"
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" index="0" unique_id=193164793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3008423, 0)
+shape = SubResource("BoxShape3D_kggx2")
 
-[node name="MovementComponent" type="Node" parent="Components" index="1" unique_id=1529440527 node_paths=PackedStringArray("agent")]
-script = ExtResource("13_ypltb")
-agent = NodePath("../../CharacterBodyNavigationAgent3D")
-metadata/_custom_type_script = "uid://b2ts4tvfy7mmb"
-
-[node name="CombatComponent" type="Node" parent="Components" index="2" unique_id=1213099991 node_paths=PackedStringArray("entity", "event_bus")]
-script = ExtResource("13_nmlhc")
-entity = NodePath("../..")
-event_bus = NodePath("../EventBusComponent")
-attack_range = 2.0
-metadata/_custom_type_script = "uid://6fa5kljvhuhy"
+[node name="Interactions" type="Node" parent="." index="9" unique_id=1228667839]

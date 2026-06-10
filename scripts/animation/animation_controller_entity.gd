@@ -1,4 +1,4 @@
 class_name AnimationController
 extends Node
 
-@export var animatable_node : anmatable
+@export var animatable_node : AnimatableNode3D

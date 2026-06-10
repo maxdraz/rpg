@@ -60,14 +60,14 @@ mesh = SubResource("BoxMesh_sgp6g")
 transform = Transform3D(1, 0, 0, 0, 0.80434453, 0.5941632, 0, -0.5941632, 0.80434453, 0, 9.758943, 7.609801)
 
 [node name="Camera3D2" type="Camera3D" parent="." unique_id=1705657550]
-transform = Transform3D(1, 0, 0, 0, 0.80434453, 0.5941632, 0, -0.5941632, 0.80434453, -0.1530515, 3.452652, 2.9879708)
+transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 6, 9.625, 3.7182865)
+projection = 1
 current = true
+size = 15.0
+far = 100.0
 
 [node name="Player" parent="." unique_id=1567233473 instance=ExtResource("2_sugp2")]
 transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, -0.097546816, 0, -0.034336686)
 
 [node name="Rat" parent="." unique_id=925541081 instance=ExtResource("2_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -3)
-
-[node name="Rat2" parent="." unique_id=1513790763 instance=ExtResource("2_jyhfs")]
-transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, 4, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8330898, 1.9073486e-06, -6.2256107)
