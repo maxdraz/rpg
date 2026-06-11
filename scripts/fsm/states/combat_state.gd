@@ -31,6 +31,7 @@ func process(delta: float) -> void:
 	
 	if combat.is_attack_ready() and is_in_range:
 		combat.attack()
+		entity.look_at(params.target.global_position, Vector3.UP, true)
 
 
 func exit() -> void:

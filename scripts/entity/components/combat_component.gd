@@ -32,4 +32,4 @@ func is_attack_ready() -> bool:
 func attack() -> void:
 	print(target.name + " took " + str(damage) + " damage")
 	cooldown_attack = attack_interval
-	event_bus.emit(DamageDealtEvent.new(), true) 
+	event_bus.emit(DamageDealtEvent.new(entity, target, damage), true) 

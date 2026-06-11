@@ -25,12 +25,11 @@ func exit() -> void:
 
 
 func move_to_random_waypoint() -> void:
-	var success = movement.try_move_to(get_random_waypoint())
-	if !success: print("no success")
+	movement.try_move_to(get_random_waypoint())
 
 
 func get_random_waypoint() -> Vector3:
-	var direction := Vector3(randf(), 0 ,randf()).normalized()
+	var direction := Vector3(randf_range(-1.0, 1.0), 0 ,randf_range(-1.0, 1.0)).normalized()
 	return entity.global_position + direction * randf_range(dist_min, dist_max)
 
 

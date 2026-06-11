@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://c0rgguixsgwm2"]
 
 [ext_resource type="PackedScene" uid="uid://ckiu58afvyd2h" path="res://scenes/actors/actor.tscn" id="1_pmwci"]
-[ext_resource type="PackedScene" uid="uid://c6ty5ihwoij18" path="res://scenes/mobs/mob_rat.tscn" id="2_172ra"]
+[ext_resource type="PackedScene" uid="uid://c6ty5ihwoij18" path="res://scenes/models_mob/mob_rat.tscn" id="2_172ra"]
 [ext_resource type="Script" uid="uid://cout2apou2hg" path="res://scripts/interaction/interactable.gd" id="3_ja7ka"]
 [ext_resource type="Script" uid="uid://bs02oj5rshh4r" path="res://scripts/interaction/interaction_attack.gd" id="4_eotln"]
 [ext_resource type="Script" uid="uid://b7vvlnx3y3ccr" path="res://addons/fsm/state_machine.gd" id="5_j5bsp"]
+[ext_resource type="Script" uid="uid://cqbljugltkxwj" path="res://scripts/fsm/states/idle_state.gd" id="6_8tt47"]
 [ext_resource type="Script" uid="uid://cb6ihppg23va0" path="res://scripts/fsm/states/wander_state.gd" id="6_om7ge"]
 [ext_resource type="Script" uid="uid://b2ts4tvfy7mmb" path="res://scripts/entity/components/movement_component.gd" id="7_gmudi"]
+[ext_resource type="Script" uid="uid://cldv17xw32jnx" path="res://scripts/ai_behaviours/ai_controller.gd" id="9_5suqg"]
+[ext_resource type="Script" uid="uid://y44aifwiclpr" path="res://scripts/ai_behaviours/wander_behaviour.gd" id="10_j8bg4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_172ra"]
 
@@ -37,10 +40,14 @@ metadata/_custom_type_script = "uid://bs02oj5rshh4r"
 
 [node name="StateMachine" type="Node" parent="." index="5" unique_id=1801452213 node_paths=PackedStringArray("default_state")]
 script = ExtResource("5_j5bsp")
-default_state = NodePath("WanderState")
+default_state = NodePath("IdleState")
 metadata/_custom_type_script = "uid://b7vvlnx3y3ccr"
 
-[node name="WanderState" type="Node" parent="StateMachine" index="0" unique_id=906887930 node_paths=PackedStringArray("entity", "movement")]
+[node name="IdleState" type="Node" parent="StateMachine" index="0" unique_id=1987807731]
+script = ExtResource("6_8tt47")
+metadata/_custom_type_script = "uid://cqbljugltkxwj"
+
+[node name="WanderState" type="Node" parent="StateMachine" index="1" unique_id=906887930 node_paths=PackedStringArray("entity", "movement")]
 script = ExtResource("6_om7ge")
 entity = NodePath("../..")
 movement = NodePath("../../Components/MovementComponent")
@@ -54,3 +61,15 @@ metadata/_custom_type_script = "uid://cb6ihppg23va0"
 script = ExtResource("7_gmudi")
 agent = NodePath("../../CharacterBodyNavigationAgent3D")
 metadata/_custom_type_script = "uid://b2ts4tvfy7mmb"
+
+[node name="AIController" type="Node" parent="." index="7" unique_id=1587543983 node_paths=PackedStringArray("container_behaviours")]
+script = ExtResource("9_5suqg")
+container_behaviours = NodePath("../Behaviours")
+metadata/_custom_type_script = "uid://cldv17xw32jnx"
+
+[node name="Behaviours" type="Node" parent="." index="8" unique_id=693999462]
+
+[node name="WanderBehaviour" type="Node" parent="Behaviours" index="0" unique_id=2118391072 node_paths=PackedStringArray("state_machine")]
+script = ExtResource("10_j8bg4")
+state_machine = NodePath("../../StateMachine")
+metadata/_custom_type_script = "uid://y44aifwiclpr"

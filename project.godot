@@ -19,6 +19,8 @@ run/max_fps=25
 
 PsxVisualsGd4AutoLoad="*uid://ck73vhmtaglwq"
 PsxVisualsGd4AutoApply="*uid://bg1t0w50tcg6a"
+EventBus="*uid://d0pakel00hamj"
+DamageNumberManager="*uid://dt7byq6mebwxh"
 
 [display]
 
@@ -31,6 +33,10 @@ window/stretch/mode="viewport"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/psx_visuals_gd4/plugin.cfg")
+
+[gui]
+
+theme/custom_font="uid://b5wfa7b33vtj3"
 
 [physics]
 

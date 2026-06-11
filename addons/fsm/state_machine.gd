@@ -34,7 +34,8 @@ func transition_to(state_class: Script, params: Variant) -> void:
 		current_state.cancel()
 		current_state.exited.disconnect(_on_state_exited)
 	current_state = state
-	current_state.exited.connect(_on_state_exited)
+	if !current_state.exited.is_connected(_on_state_exited):
+		current_state.exited.connect(_on_state_exited)
 	current_state.init(params)
 	current_state.enter()
 
