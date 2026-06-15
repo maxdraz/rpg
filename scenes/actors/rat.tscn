@@ -10,10 +10,13 @@
 [ext_resource type="Script" uid="uid://b2ts4tvfy7mmb" path="res://scripts/entity/components/movement_component.gd" id="7_gmudi"]
 [ext_resource type="Script" uid="uid://ohfccdbtgotx" path="res://scripts/event_bus/event_bus_component.gd" id="8_xhltl"]
 [ext_resource type="Script" uid="uid://cldv17xw32jnx" path="res://scripts/ai_behaviours/ai_controller.gd" id="9_5suqg"]
+[ext_resource type="Script" uid="uid://b71rcvdpsb4fm" path="res://scripts/fsm/states/combat_state.gd" id="9_p02u4"]
 [ext_resource type="Script" uid="uid://yisw1q7bxopr" path="res://scripts/entity/components/stats_component.gd" id="9_ptaod"]
 [ext_resource type="Resource" uid="uid://dwmvspf0v763b" path="res://resources/stats/stat_sets/stat_set_rat.tres" id="10_fhlh3"]
 [ext_resource type="Script" uid="uid://y44aifwiclpr" path="res://scripts/ai_behaviours/wander_behaviour.gd" id="10_j8bg4"]
 [ext_resource type="Script" uid="uid://ti4r5p5a5mpw" path="res://scripts/entity/components/health_component.gd" id="11_p02u4"]
+[ext_resource type="Script" uid="uid://6fa5kljvhuhy" path="res://scripts/entity/components/combat_component.gd" id="14_x2q8p"]
+[ext_resource type="Script" uid="uid://dqadlxvccu0ti" path="res://scripts/ai_behaviours/defend_behaviour.gd" id="15_ptaod"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tt47"]
 albedo_color = Color(0.53986263, 1.0348111e-06, 2.8878452e-07, 1)
@@ -77,6 +80,13 @@ dist_min = 2.0
 interval_max = 3.0
 metadata/_custom_type_script = "uid://cb6ihppg23va0"
 
+[node name="CombatState" type="Node" parent="Components/StateMachineComponent" index="2" unique_id=1816375686 node_paths=PackedStringArray("entity", "movement", "combat")]
+script = ExtResource("9_p02u4")
+entity = NodePath("../../..")
+movement = NodePath("../../MovementComponent")
+combat = NodePath("../../CombatComponent")
+metadata/_custom_type_script = "uid://b71rcvdpsb4fm"
+
 [node name="StatsComponent" type="Node" parent="Components" index="2" unique_id=1321324179]
 script = ExtResource("9_ptaod")
 stat_set = ExtResource("10_fhlh3")
@@ -93,6 +103,14 @@ script = ExtResource("7_gmudi")
 agent = NodePath("../../CharacterBodyNavigationAgent3D")
 metadata/_custom_type_script = "uid://b2ts4tvfy7mmb"
 
+[node name="CombatComponent" type="Node" parent="Components" index="5" unique_id=1487718187 node_paths=PackedStringArray("entity", "event_bus", "stats", "health")]
+script = ExtResource("14_x2q8p")
+entity = NodePath("../..")
+event_bus = NodePath("../EventBusComponent")
+stats = NodePath("../StatsComponent")
+health = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://6fa5kljvhuhy"
+
 [node name="AIController" type="Node" parent="." index="7" unique_id=1587543983 node_paths=PackedStringArray("container_behaviours")]
 script = ExtResource("9_5suqg")
 container_behaviours = NodePath("../Behaviours")
@@ -104,3 +122,12 @@ metadata/_custom_type_script = "uid://cldv17xw32jnx"
 script = ExtResource("10_j8bg4")
 state_machine = NodePath("../../Components/StateMachineComponent")
 metadata/_custom_type_script = "uid://y44aifwiclpr"
+
+[node name="DefendBehaviour" type="Node" parent="Behaviours" index="1" unique_id=467025331 node_paths=PackedStringArray("entity", "event_bus", "combat", "state_machine")]
+script = ExtResource("15_ptaod")
+entity = NodePath("../..")
+event_bus = NodePath("../../Components/EventBusComponent")
+combat = NodePath("../../Components/CombatComponent")
+state_machine = NodePath("../../Components/StateMachineComponent")
+priority = 10
+metadata/_custom_type_script = "uid://dqadlxvccu0ti"

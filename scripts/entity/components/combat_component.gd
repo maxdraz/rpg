@@ -12,6 +12,8 @@ extends EntityComponent
 var target: Entity
 var cooldown: float
 
+signal target_changed(new_target: Entity)
+
 
 func _process(delta) -> void:
 	if cooldown > 0:
@@ -20,6 +22,7 @@ func _process(delta) -> void:
 
 func set_target(target: Entity) -> void:
 	self.target = target
+	target_changed.emit(target)
 
 
 func is_in_range() -> bool:
@@ -40,10 +43,17 @@ func deal_damage() -> void:
 	if !target: return
 	var target_health = target.get_component(HealthComponent) as HealthComponent
 	if !target_health: return
-	var damage = stats.get_base_stat(StatTypeStrength)
-	if !damage: damage = 0.0
-	target_health.set_hp(target_health.hp - damage)
-	event_bus.emit(EventDamageDealt.new(entity, target, damage), true)
+
+	var strength = stats.get_base_stat(StatTypeStrength)
+	if !strength: strength = 0.0
+	var damage_data = DamageData.new()
+	damage_data.damage = strength
+
+	target_health.set_hp(target_health.hp - damage_data.damage)
+
+	event_bus.emit(EventDamageDealt.new(entity, target, damage_data), true)
+	var target_event_bus := target.get_component(EventBusComponent)
+	if target_event_bus: target_event_bus.emit(EventDamageTaken.new(entity, target, damage_data))
 
 
 func reset_cooldown() -> void: 

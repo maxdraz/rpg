@@ -3,10 +3,10 @@ extends Event
 
 var damage_dealer: Entity
 var damage_taker: Entity
-var damage: int
+var damage_data: DamageData
 
 
-func _init(damage_dealer, damage_taker, damage) -> void:
+func _init(damage_dealer, damage_taker, damage_data: DamageData) -> void:
     self.damage_dealer = damage_dealer
     self.damage_taker = damage_taker
-    self.damage = damage
+    self.damage_data = damage_data

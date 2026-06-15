@@ -1,7 +1,7 @@
 class_name AIBehaviour
 extends Node
 
-var priority: int
+@export var priority: int
 
 
 func is_conditions_met() -> bool:
