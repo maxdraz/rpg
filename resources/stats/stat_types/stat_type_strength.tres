@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="StatTypeStrength" format=3 uid="uid://blp4jnvysmfq7"]
+
+[ext_resource type="Script" uid="uid://do476dpbp5cq0" path="res://scripts/stats/stat_types/stat_type_strength.gd" id="1_moe68"]
+
+[resource]
+script = ExtResource("1_moe68")
+metadata/_custom_type_script = "uid://do476dpbp5cq0"

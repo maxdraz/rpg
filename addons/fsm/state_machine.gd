@@ -1,4 +1,4 @@
-class_name StateMachine
+class_name StateMachineComponent
 extends EntityComponent
 
 @export var default_state: State

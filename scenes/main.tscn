@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://c0rgguixsgwm2" path="res://scenes/actors/rat.tscn" id="2_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlrk0hkpq35vu" path="res://scenes/actors/player.tscn" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://jtojj6ov8uec" path="res://scripts/camera/camera_rig_3d.gd" id="4_jyhfs"]
+[ext_resource type="AudioStream" uid="uid://sujph032gisj" path="res://assets/audio/music/whispers_of_a_forgotten_realm.ogg" id="5_tbgi4"]
+[ext_resource type="AudioStream" uid="uid://bawqqmjd3g6pd" path="res://assets/audio/music/fishermans_quiver.ogg" id="5_tefeu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -35,6 +37,11 @@ texture_filter = 2
 [sub_resource type="BoxMesh" id="BoxMesh_sgp6g"]
 size = Vector3(50, 1, 50)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_o6xl0"]
+streams_count = 2
+stream_0/stream = ExtResource("5_tefeu")
+stream_1/stream = ExtResource("5_tbgi4")
+
 [node name="Main" type="Node" unique_id=1852786395]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2012372359]
@@ -58,7 +65,7 @@ material_override = SubResource("StandardMaterial3D_0wfyh")
 mesh = SubResource("BoxMesh_sgp6g")
 
 [node name="Player" parent="." unique_id=1567233473 instance=ExtResource("2_sugp2")]
-transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, -0.097546816, 0, -0.034336686)
+transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, 0, 0, 0)
 
 [node name="Rat" parent="." unique_id=925541081 instance=ExtResource("2_jyhfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8330898, 1.9073486e-06, -6.2256107)
@@ -72,10 +79,17 @@ update_in_physics_process = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig3D" unique_id=1281474541]
 transform = Transform3D(1, 0, 0, 0, 0.80434453, 0.5941632, 0, -0.5941632, 0.80434453, 0, 3.5739837, 2.3185132)
-current = true
+
+[node name="Camera3D3" type="Camera3D" parent="CameraRig3D" unique_id=2127426686]
+transform = Transform3D(1, 0, 0, 0, 0.80434453, 0.5941632, 0, -0.5941632, 0.80434453, 0, 5.8666334, 5.4221725)
 
 [node name="Camera3D2" type="Camera3D" parent="CameraRig3D" unique_id=1705657550]
 transform = Transform3D(0.7071068, -0.5, 0.49999997, 0, 0.7071068, 0.7071068, -0.7071068, -0.50000006, 0.5, 3.9072766, 7.5495167, 3.9704874)
 projection = 1
+current = true
 size = 15.0
 far = 100.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2425508]
+stream = SubResource("AudioStreamRandomizer_o6xl0")
+autoplay = true

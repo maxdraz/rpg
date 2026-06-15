@@ -1,4 +1,4 @@
-class_name DamageDealtEvent
+class_name EventDamageDealt
 extends Event
 
 var damage_dealer: Entity

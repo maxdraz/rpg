@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StatSet" format=3 uid="uid://cpm5kc71k4rnl"]
+
+[ext_resource type="Script" uid="uid://cfq255ptpdjos" path="res://scripts/stats/stat_types/stat_type.gd" id="1_blav1"]
+[ext_resource type="Resource" uid="uid://d3732r8x6xhi0" path="res://resources/stats/stat_types/stat_type_max_hp.tres" id="2_eskjk"]
+[ext_resource type="Script" uid="uid://d3oh7uste6agf" path="res://scripts/stats/stat_set.gd" id="2_fuh6w"]
+[ext_resource type="Resource" uid="uid://blp4jnvysmfq7" path="res://resources/stats/stat_types/stat_type_strength.tres" id="3_0law7"]
+[ext_resource type="Resource" uid="uid://cmbldyp8u8yb5" path="res://resources/stats/stat_types/stat_type_attack_speed.tres" id="4_foi2o"]
+
+[resource]
+script = ExtResource("2_fuh6w")
+base_stats = Dictionary[ExtResource("1_blav1"), float]({
+ExtResource("2_eskjk"): 100.0,
+ExtResource("3_0law7"): 10.0,
+ExtResource("4_foi2o"): 1.0
+})
+metadata/_custom_type_script = "uid://d3oh7uste6agf"

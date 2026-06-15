@@ -3,7 +3,7 @@ extends Node3D
 
 @export var entity: Entity
 @export var input_controller: InputController
-@export var state_machine: StateMachine
+@export var state_machine: StateMachineComponent
 
 
 func _ready() -> void:

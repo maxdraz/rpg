@@ -1,7 +1,7 @@
 class_name WanderBehaviour
 extends AIBehaviour
 
-@export var state_machine: StateMachine
+@export var state_machine: StateMachineComponent
 
 func is_conditions_met() -> bool:
 	return state_machine.current_state is not WanderState

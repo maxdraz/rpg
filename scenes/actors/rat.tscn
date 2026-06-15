@@ -8,20 +8,36 @@
 [ext_resource type="Script" uid="uid://cqbljugltkxwj" path="res://scripts/fsm/states/idle_state.gd" id="6_8tt47"]
 [ext_resource type="Script" uid="uid://cb6ihppg23va0" path="res://scripts/fsm/states/wander_state.gd" id="6_om7ge"]
 [ext_resource type="Script" uid="uid://b2ts4tvfy7mmb" path="res://scripts/entity/components/movement_component.gd" id="7_gmudi"]
+[ext_resource type="Script" uid="uid://ohfccdbtgotx" path="res://scripts/event_bus/event_bus_component.gd" id="8_xhltl"]
 [ext_resource type="Script" uid="uid://cldv17xw32jnx" path="res://scripts/ai_behaviours/ai_controller.gd" id="9_5suqg"]
+[ext_resource type="Script" uid="uid://yisw1q7bxopr" path="res://scripts/entity/components/stats_component.gd" id="9_ptaod"]
+[ext_resource type="Resource" uid="uid://dwmvspf0v763b" path="res://resources/stats/stat_sets/stat_set_rat.tres" id="10_fhlh3"]
 [ext_resource type="Script" uid="uid://y44aifwiclpr" path="res://scripts/ai_behaviours/wander_behaviour.gd" id="10_j8bg4"]
+[ext_resource type="Script" uid="uid://ti4r5p5a5mpw" path="res://scripts/entity/components/health_component.gd" id="11_p02u4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tt47"]
+albedo_color = Color(0.53986263, 1.0348111e-06, 2.8878452e-07, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8tt47"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_172ra"]
 
-[node name="Rat" unique_id=925541081 instance=ExtResource("1_pmwci")]
+[node name="Rat" unique_id=925541081 node_paths=PackedStringArray("component_container") instance=ExtResource("1_pmwci")]
+component_container = NodePath("Components")
 
 [node name="CharacterBodyNavigationAgent3D" parent="." index="1" unique_id=818474830]
 speed = 2.0
 
 [node name="MobRat" parent="." index="2" unique_id=792219470 instance=ExtResource("2_172ra")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0.5)
+visible = false
 
-[node name="Interactable" type="Area3D" parent="." index="3" unique_id=279717106 node_paths=PackedStringArray("interactions", "default_interaction")]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="3" unique_id=561235526]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_8tt47")
+mesh = SubResource("CapsuleMesh_8tt47")
+
+[node name="Interactable" type="Area3D" parent="." index="4" unique_id=279717106 node_paths=PackedStringArray("interactions", "default_interaction")]
 script = ExtResource("3_ja7ka")
 interactions = [NodePath("../Interactions/InteractionAttack")]
 default_interaction = NodePath("../Interactions/InteractionAttack")
@@ -31,33 +47,48 @@ metadata/_custom_type_script = "uid://cout2apou2hg"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_172ra")
 
-[node name="Interactions" type="Node" parent="." index="4" unique_id=333527131]
+[node name="Interactions" type="Node" parent="." index="5" unique_id=333527131]
 
 [node name="InteractionAttack" type="Node" parent="Interactions" index="0" unique_id=195332179 node_paths=PackedStringArray("entity")]
 script = ExtResource("4_eotln")
 entity = NodePath("../..")
 metadata/_custom_type_script = "uid://bs02oj5rshh4r"
 
-[node name="StateMachine" type="Node" parent="." index="5" unique_id=1801452213 node_paths=PackedStringArray("default_state")]
+[node name="Components" type="Node" parent="." index="6" unique_id=128462367]
+
+[node name="EventBusComponent" type="Node" parent="Components" index="0" unique_id=71218335]
+script = ExtResource("8_xhltl")
+metadata/_custom_type_script = "uid://ohfccdbtgotx"
+
+[node name="StateMachineComponent" type="Node" parent="Components" index="1" unique_id=1801452213 node_paths=PackedStringArray("default_state")]
 script = ExtResource("5_j5bsp")
 default_state = NodePath("IdleState")
 metadata/_custom_type_script = "uid://b7vvlnx3y3ccr"
 
-[node name="IdleState" type="Node" parent="StateMachine" index="0" unique_id=1987807731]
+[node name="IdleState" type="Node" parent="Components/StateMachineComponent" index="0" unique_id=1987807731]
 script = ExtResource("6_8tt47")
 metadata/_custom_type_script = "uid://cqbljugltkxwj"
 
-[node name="WanderState" type="Node" parent="StateMachine" index="1" unique_id=906887930 node_paths=PackedStringArray("entity", "movement")]
+[node name="WanderState" type="Node" parent="Components/StateMachineComponent" index="1" unique_id=906887930 node_paths=PackedStringArray("entity", "movement")]
 script = ExtResource("6_om7ge")
-entity = NodePath("../..")
-movement = NodePath("../../Components/MovementComponent")
+entity = NodePath("../../..")
+movement = NodePath("../../MovementComponent")
 dist_min = 2.0
 interval_max = 3.0
 metadata/_custom_type_script = "uid://cb6ihppg23va0"
 
-[node name="Components" type="Node" parent="." index="6" unique_id=128462367]
+[node name="StatsComponent" type="Node" parent="Components" index="2" unique_id=1321324179]
+script = ExtResource("9_ptaod")
+stat_set = ExtResource("10_fhlh3")
+metadata/_custom_type_script = "uid://yisw1q7bxopr"
 
-[node name="MovementComponent" type="Node" parent="Components" index="0" unique_id=1861019200 node_paths=PackedStringArray("agent")]
+[node name="HealthComponent" type="Node" parent="Components" index="3" unique_id=787583246 node_paths=PackedStringArray("stats", "event_bus")]
+script = ExtResource("11_p02u4")
+stats = NodePath("../StatsComponent")
+event_bus = NodePath("../EventBusComponent")
+metadata/_custom_type_script = "uid://ti4r5p5a5mpw"
+
+[node name="MovementComponent" type="Node" parent="Components" index="4" unique_id=1861019200 node_paths=PackedStringArray("agent")]
 script = ExtResource("7_gmudi")
 agent = NodePath("../../CharacterBodyNavigationAgent3D")
 metadata/_custom_type_script = "uid://b2ts4tvfy7mmb"
@@ -71,5 +102,5 @@ metadata/_custom_type_script = "uid://cldv17xw32jnx"
 
 [node name="WanderBehaviour" type="Node" parent="Behaviours" index="0" unique_id=2118391072 node_paths=PackedStringArray("state_machine")]
 script = ExtResource("10_j8bg4")
-state_machine = NodePath("../../StateMachine")
+state_machine = NodePath("../../Components/StateMachineComponent")
 metadata/_custom_type_script = "uid://y44aifwiclpr"
