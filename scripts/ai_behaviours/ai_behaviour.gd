@@ -3,6 +3,8 @@ extends Node
 
 @export var priority: int
 
+signal exited(behaviour: AIBehaviour)
+
 
 func is_conditions_met() -> bool:
 	return false
@@ -10,3 +12,11 @@ func is_conditions_met() -> bool:
 
 func execute() -> void:
 	pass
+
+
+func cancel() -> void: 
+	pass
+
+
+func exit() -> void:
+	exited.emit(self)

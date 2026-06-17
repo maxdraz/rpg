@@ -25,7 +25,7 @@ func process(delta: float) -> void:
 	super.process(delta)
 	position_check_cooldown -= delta
 	if position_check_cooldown <= 0 && !combat.is_in_move_range():
-		movement.try_move_to(params.target.global_position, combat.get_move_range())
+		movement.try_move_to(params.target.global_position, combat.attack_range)
 		position_check_cooldown = combat.target_position_check_interval
 	
 	if combat.is_attack_ready() and combat.is_in_attack_range():
@@ -36,11 +36,13 @@ func process(delta: float) -> void:
 func exit() -> void:
 	super.exit()
 	movement.target_reached.disconnect(_on_target_reached)
+	combat.set_target(null)
 
 
 func cancel() -> void:
 	super.cancel()
 	movement.target_reached.disconnect(_on_target_reached)
+	combat.set_target(null)
 
 
 func _on_target_reached() -> void:

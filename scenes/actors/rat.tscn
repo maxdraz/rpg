@@ -12,11 +12,15 @@
 [ext_resource type="Script" uid="uid://cldv17xw32jnx" path="res://scripts/ai_behaviours/ai_controller.gd" id="9_5suqg"]
 [ext_resource type="Script" uid="uid://b71rcvdpsb4fm" path="res://scripts/fsm/states/combat_state.gd" id="9_p02u4"]
 [ext_resource type="Script" uid="uid://yisw1q7bxopr" path="res://scripts/entity/components/stats_component.gd" id="9_ptaod"]
+[ext_resource type="Script" uid="uid://2ppsm3ulit15" path="res://scripts/fsm/states/move_to_state.gd" id="10_cspj1"]
 [ext_resource type="Resource" uid="uid://dwmvspf0v763b" path="res://resources/stats/stat_sets/stat_set_rat.tres" id="10_fhlh3"]
 [ext_resource type="Script" uid="uid://y44aifwiclpr" path="res://scripts/ai_behaviours/wander_behaviour.gd" id="10_j8bg4"]
 [ext_resource type="Script" uid="uid://ti4r5p5a5mpw" path="res://scripts/entity/components/health_component.gd" id="11_p02u4"]
 [ext_resource type="Script" uid="uid://6fa5kljvhuhy" path="res://scripts/entity/components/combat_component.gd" id="14_x2q8p"]
 [ext_resource type="Script" uid="uid://dqadlxvccu0ti" path="res://scripts/ai_behaviours/defend_behaviour.gd" id="15_ptaod"]
+[ext_resource type="Script" uid="uid://b2pgl0w83ek5u" path="res://scripts/ai_behaviours/return_to_spawn_behaviour.gd" id="18_x2q8p"]
+[ext_resource type="Script" uid="uid://2drsartahap2" path="res://scripts/audio/entity_audio_controller.gd" id="20_rlicj"]
+[ext_resource type="AudioStream" uid="uid://c1dynb2rwa8ho" path="res://assets/audio/sfx/take_damage_1.wav" id="21_rlicj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tt47"]
 albedo_color = Color(0.53986263, 1.0348111e-06, 2.8878452e-07, 1)
@@ -24,6 +28,11 @@ albedo_color = Color(0.53986263, 1.0348111e-06, 2.8878452e-07, 1)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8tt47"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_172ra"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3ktun"]
+random_pitch = 1.7817973
+streams_count = 1
+stream_0/stream = ExtResource("21_rlicj")
 
 [node name="Rat" unique_id=925541081 node_paths=PackedStringArray("component_container") instance=ExtResource("1_pmwci")]
 component_container = NodePath("Components")
@@ -87,6 +96,11 @@ movement = NodePath("../../MovementComponent")
 combat = NodePath("../../CombatComponent")
 metadata/_custom_type_script = "uid://b71rcvdpsb4fm"
 
+[node name="MoveToState" type="Node" parent="Components/StateMachineComponent" index="3" unique_id=1124005685 node_paths=PackedStringArray("movement")]
+script = ExtResource("10_cspj1")
+movement = NodePath("../../MovementComponent")
+metadata/_custom_type_script = "uid://2ppsm3ulit15"
+
 [node name="StatsComponent" type="Node" parent="Components" index="2" unique_id=1321324179]
 script = ExtResource("9_ptaod")
 stat_set = ExtResource("10_fhlh3")
@@ -132,3 +146,24 @@ combat = NodePath("../../Components/CombatComponent")
 state_machine = NodePath("../../Components/StateMachineComponent")
 priority = 10
 metadata/_custom_type_script = "uid://dqadlxvccu0ti"
+
+[node name="ReturnToSpawnBehaviour" type="Node" parent="Behaviours" index="2" unique_id=1221728792 node_paths=PackedStringArray("entity", "state_machine")]
+script = ExtResource("18_x2q8p")
+entity = NodePath("../..")
+state_machine = NodePath("../../Components/StateMachineComponent")
+max_distance = 7.5
+priority = 20
+metadata/_custom_type_script = "uid://b2pgl0w83ek5u"
+
+[node name="EntityAudioController" type="Node" parent="." index="9" unique_id=1926994264 node_paths=PackedStringArray("audio_stream_player", "audio_stream_player_3d", "event_bus")]
+script = ExtResource("20_rlicj")
+audio_stream_player = NodePath("AudioStreamPlayer")
+audio_stream_player_3d = NodePath("AudioStreamPlayer3D")
+event_bus = NodePath("../Components/EventBusComponent")
+damage = SubResource("AudioStreamRandomizer_3ktun")
+metadata/_custom_type_script = "uid://2drsartahap2"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="EntityAudioController" index="0" unique_id=1653012546]
+volume_db = -10.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="EntityAudioController" index="1" unique_id=636690248]

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b7vvlnx3y3ccr" path="res://addons/fsm/state_machine.gd" id="4_7wueq"]
 [ext_resource type="Script" uid="uid://cqbljugltkxwj" path="res://scripts/fsm/states/idle_state.gd" id="5_8y416"]
 [ext_resource type="Script" uid="uid://2ppsm3ulit15" path="res://scripts/fsm/states/move_to_state.gd" id="6_7860b"]
+[ext_resource type="AudioStream" uid="uid://c1dynb2rwa8ho" path="res://assets/audio/sfx/take_damage_1.wav" id="7_dferu"]
 [ext_resource type="Script" uid="uid://2drsartahap2" path="res://scripts/audio/entity_audio_controller.gd" id="9_0w4p8"]
 [ext_resource type="Script" uid="uid://b71rcvdpsb4fm" path="res://scripts/fsm/states/combat_state.gd" id="9_c4rn8"]
 [ext_resource type="AudioStream" uid="uid://ckkypcs3lmi2t" path="res://assets/audio/sfx/click_1.wav" id="10_wl55n"]
@@ -26,6 +27,11 @@ albedo_color = Color(0.5449743, 0.54497427, 0.54497427, 1)
 random_pitch = 1.7817973
 streams_count = 1
 stream_0/stream = ExtResource("10_wl55n")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_t62v4"]
+random_pitch = 1.7817973
+streams_count = 1
+stream_0/stream = ExtResource("7_dferu")
 
 [node name="Player" unique_id=925541081 node_paths=PackedStringArray("component_container") instance=ExtResource("1_tgyl1")]
 component_container = NodePath("Components")
@@ -53,15 +59,18 @@ input_controller = NodePath("../InputController")
 state_machine = NodePath("../Components/StateMachineComponent")
 metadata/_custom_type_script = "uid://c4bf2mwqfxscn"
 
-[node name="EntityAudioController" type="Node" parent="." index="6" unique_id=909814821 node_paths=PackedStringArray("audio_stream_player", "audio_stream_player_3d", "input")]
+[node name="EntityAudioController" type="Node" parent="." index="6" unique_id=909814821 node_paths=PackedStringArray("audio_stream_player", "audio_stream_player_3d", "input", "event_bus")]
 script = ExtResource("9_0w4p8")
 audio_stream_player = NodePath("AudioStreamPlayer")
 audio_stream_player_3d = NodePath("AudioStreamPlayer3D")
 input = NodePath("../InputController")
+event_bus = NodePath("../Components/EventBusComponent")
 click = SubResource("AudioStreamRandomizer_wl55n")
+damage = SubResource("AudioStreamRandomizer_t62v4")
 metadata/_custom_type_script = "uid://2drsartahap2"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="EntityAudioController" index="0" unique_id=1113071871]
+volume_db = -10.0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="EntityAudioController" index="1" unique_id=1786544276]
 

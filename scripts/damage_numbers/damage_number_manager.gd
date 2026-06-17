@@ -10,7 +10,6 @@ func _ready() -> void:
 func _on_event(event: Event) -> void:
 	var damage_dealt_event = event as EventDamageDealt
 	if !damage_dealt_event: return
-	print("spawning damage number " + str(event.damage_data.damage))
 	var scene = load(number_scene_path)
 	var damage_number = scene.instantiate() as DamageNumber
 	add_child(damage_number)

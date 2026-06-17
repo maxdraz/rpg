@@ -26,22 +26,20 @@ func set_target(target: Entity) -> void:
 
 
 func is_in_attack_range() -> bool:
-	return target and target.global_position.distance_squared_to(entity.global_position) <= attack_range * attack_range
+	var effective_attack_range = attack_range + 0.25
+	return target and target.global_position.distance_squared_to(entity.global_position) <= effective_attack_range * effective_attack_range
 
 
 func is_in_move_range() -> bool:
-	var move_range = get_move_range()
-	return target and target.global_position.distance_squared_to(entity.global_position) <= move_range * move_range
+	return target and target.global_position.distance_squared_to(entity.global_position) <= attack_range * attack_range
 
-
-func get_move_range() -> float:
-	return clampf(attack_range, 0, attack_range - 0.25)
 
 func is_attack_ready() -> bool:
 	return cooldown <= 0
 
 
 func attack() -> void:
+	validate_target()
 	deal_damage()
 	reset_cooldown()
 	validate_target()
@@ -58,7 +56,7 @@ func deal_damage() -> void:
 	damage_data.damage = strength
 
 	target_health.set_hp(target_health.hp - damage_data.damage)
-
+	print(entity.name + " dealt " + str(damage_data.damage) + " dmg")
 	event_bus.emit(EventDamageDealt.new(entity, target, damage_data), true)
 	var target_event_bus := target.get_component(EventBusComponent)
 	if target_event_bus: target_event_bus.emit(EventDamageTaken.new(entity, target, damage_data))

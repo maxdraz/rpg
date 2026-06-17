@@ -4,10 +4,13 @@ extends Node
 @export var audio_stream_player: AudioStreamPlayer
 @export var audio_stream_player_3d: AudioStreamPlayer3D
 @export var input: InputController
+@export var event_bus: EventBusComponent
 @export var click: AudioStream
+@export var damage: AudioStream
 
 func _ready() -> void:
 	if input: input.left_click.connect(_on_left_click)
+	event_bus.emitted.connect(_on_event)
 
 
 func _on_left_click(event: InputEvent) -> void:
@@ -23,3 +26,8 @@ func play_3d(sfx: AudioStream) -> void:
 	audio_stream_player_3d.stream = sfx
 	audio_stream_player_3d.play()
 	audio_stream_player_3d.play()
+
+
+func _on_event(event: Event) -> void:
+	if event is EventDamageDealt:
+		play(damage)

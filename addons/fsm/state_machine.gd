@@ -6,6 +6,8 @@ extends EntityComponent
 var states: Dictionary[Script, State]
 var current_state: State
 
+signal state_changed(old_state: State, new_state: State)
+
 
 func _ready() -> void:
 	for child in get_children():
@@ -33,11 +35,13 @@ func transition_to(state_class: Script, params: Variant) -> void:
 	if current_state:
 		current_state.cancel()
 		current_state.exited.disconnect(_on_state_exited)
+	var old_state = state
 	current_state = state
 	if !current_state.exited.is_connected(_on_state_exited):
 		current_state.exited.connect(_on_state_exited)
 	current_state.init(params)
 	current_state.enter()
+	state_changed.emit(old_state, current_state)
 
 
 func _on_state_exited() -> void:
