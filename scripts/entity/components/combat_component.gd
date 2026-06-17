@@ -7,7 +7,7 @@ extends EntityComponent
 @export var health: HealthComponent
 @export var attack_interval := 2.0
 @export var attack_range := 4.0
-@export var target_position_check_interval := 0.6
+@export var target_position_check_interval := 0.0
 
 var target: Entity
 var cooldown: float
@@ -25,9 +25,17 @@ func set_target(target: Entity) -> void:
 	target_changed.emit(target)
 
 
-func is_in_range() -> bool:
+func is_in_attack_range() -> bool:
 	return target and target.global_position.distance_squared_to(entity.global_position) <= attack_range * attack_range
 
+
+func is_in_move_range() -> bool:
+	var move_range = get_move_range()
+	return target and target.global_position.distance_squared_to(entity.global_position) <= move_range * move_range
+
+
+func get_move_range() -> float:
+	return clampf(attack_range, 0, attack_range - 0.25)
 
 func is_attack_ready() -> bool:
 	return cooldown <= 0

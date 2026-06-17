@@ -4,8 +4,8 @@ extends Node3D
 @export var label: Label3D
 
 
-func initialize(position: Vector3, text: String) ->void:
-	global_position = position
+func initialize(pos: Vector3, text: String) ->void:
+	global_position = pos
 	label.text = text
 	animate()
 

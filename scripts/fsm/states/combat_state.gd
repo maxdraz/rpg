@@ -24,12 +24,11 @@ func enter() -> void:
 func process(delta: float) -> void:
 	super.process(delta)
 	position_check_cooldown -= delta
-	var is_in_range = combat.is_in_range()
-	if position_check_cooldown <= 0 && !is_in_range:
-		movement.try_move_to(params.target.global_position, combat.attack_range)
+	if position_check_cooldown <= 0 && !combat.is_in_move_range():
+		movement.try_move_to(params.target.global_position, combat.get_move_range())
 		position_check_cooldown = combat.target_position_check_interval
 	
-	if combat.is_attack_ready() and is_in_range:
+	if combat.is_attack_ready() and combat.is_in_attack_range():
 		combat.attack()
 		entity.look_at(params.target.global_position, Vector3.UP, true)
 
