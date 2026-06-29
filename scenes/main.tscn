@@ -8,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://bawqqmjd3g6pd" path="res://assets/audio/music/fishermans_quiver.ogg" id="5_tefeu"]
 [ext_resource type="AudioStream" uid="uid://b5fgnqbtj0pw1" path="res://assets/audio/music/strike_the_earth.ogg" id="7_o6xl0"]
 [ext_resource type="AudioStream" uid="uid://bikvpjcuiu306" path="res://assets/audio/music/polynomial_c.ogg" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://d1m5fwlwhblum" path="res://scenes/environment/tree_01.tscn" id="9_85g3d"]
+[ext_resource type="PackedScene" uid="uid://bhpnb0ief5qxn" path="res://scenes/environment/tree_02.tscn" id="10_choun"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -96,6 +98,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7568594, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig3D/CameraHolder" unique_id=1281474541]
 near = 0.1
+far = 30.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2425508]
 stream = SubResource("AudioStreamRandomizer_o6xl0")
@@ -113,6 +116,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="InventoryPanel" type="Panel" parent="CanvasLayer/UI" unique_id=995082832]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -403,3 +407,21 @@ text = "[11:06] Rat damage dealt -1"
 [node name="Label6" type="Label" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1054836167]
 layout_mode = 2
 text = "[11:06] Rat damage dealt -1"
+
+[node name="tree01" parent="." unique_id=396640738 instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.493267, 4.88762e-07, 5.506708)
+
+[node name="tree02" parent="." unique_id=297162925 instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.493267, 4.88762e-07, -7.493292)
+
+[node name="tree03" parent="." unique_id=1770583608 instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9870148, 4.88762e-07, 12.3924885)
+
+[node name="tree04" parent="." unique_id=46319595 instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.020313263, 4.88762e-07, -14.994333)
+
+[node name="tree05" parent="." unique_id=347349633 instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9796867, 4.88762e-07, 8.005667)
+
+[node name="tree06" parent="." unique_id=803445390 instance=ExtResource("10_choun")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -1)

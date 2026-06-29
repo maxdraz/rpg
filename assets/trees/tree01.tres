@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b0sji72r327xu"]
+
+[ext_resource type="Texture2D" uid="uid://rpiqknqj6br3" path="res://assets/trees/tree01.png" id="1_2x3eq"]
+
+[resource]
+resource_name = "tree01"
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
+albedo_texture = ExtResource("1_2x3eq")
+metallic_specular = 0.0
+roughness = 0.0
+texture_filter = 2
