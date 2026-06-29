@@ -42,10 +42,10 @@ speed = 2.0
 
 [node name="MobRat" parent="." index="2" unique_id=792219470 instance=ExtResource("2_172ra")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0.5)
-visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="3" unique_id=561235526]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_8tt47")
 mesh = SubResource("CapsuleMesh_8tt47")
 

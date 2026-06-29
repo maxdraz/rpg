@@ -14,5 +14,5 @@ func animate() -> void:
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
-	tween.tween_property(label, "position:y", 0.5, 0.75).as_relative()
+	tween.tween_property(label, "position:y", 0.0, 0.75).as_relative()
 	tween.tween_callback(queue_free)

@@ -42,11 +42,11 @@ speed = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2" unique_id=885249629]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_ypltb")
 mesh = SubResource("CapsuleMesh_ypltb")
 
 [node name="VillagerMale" parent="." index="3" unique_id=1555066614 instance=ExtResource("3_0w4p8")]
-visible = false
 
 [node name="InputController" type="Node" parent="." index="4" unique_id=1894049777]
 script = ExtResource("2_poj5f")

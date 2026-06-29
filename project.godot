@@ -24,8 +24,8 @@ DamageNumberManager="*uid://dt7byq6mebwxh"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=480
+window/size/viewport_width=256
+window/size/viewport_height=224
 window/size/window_width_override=1152
 window/size/window_height_override=648
 window/stretch/mode="viewport"
@@ -36,6 +36,7 @@ enabled=PackedStringArray("res://addons/psx_visuals_gd4/plugin.cfg")
 
 [gui]
 
+theme/custom="uid://bwocux2pvcqq8"
 theme/custom_font="uid://b5wfa7b33vtj3"
 
 [physics]
@@ -48,6 +49,7 @@ textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+2d/snap/snap_2d_transforms_to_pixel=true
 
 [shader_globals]
 

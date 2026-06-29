@@ -1,0 +1,16 @@
+[gd_resource type="Theme" format=3 uid="uid://bwocux2pvcqq8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jw6qk"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 1.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+
+[resource]
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_jw6qk")

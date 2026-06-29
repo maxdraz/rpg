@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://cvo7w7v04f75t"]
 
-[ext_resource type="Texture2D" uid="uid://0stlsxgugj3v" path="res://assets/textures/prototyping/Dark/texture_06.png" id="1_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://cxjq1htfrqh22" path="res://assets/textures/nature/Grass/Grass_25-128x128.png" id="1_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://c0rgguixsgwm2" path="res://scenes/actors/rat.tscn" id="2_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlrk0hkpq35vu" path="res://scenes/actors/player.tscn" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://jtojj6ov8uec" path="res://scripts/camera/camera_rig_3d.gd" id="4_jyhfs"]
 [ext_resource type="AudioStream" uid="uid://sujph032gisj" path="res://assets/audio/music/whispers_of_a_forgotten_realm.ogg" id="5_tbgi4"]
 [ext_resource type="AudioStream" uid="uid://bawqqmjd3g6pd" path="res://assets/audio/music/fishermans_quiver.ogg" id="5_tefeu"]
 [ext_resource type="AudioStream" uid="uid://b5fgnqbtj0pw1" path="res://assets/audio/music/strike_the_earth.ogg" id="7_o6xl0"]
+[ext_resource type="AudioStream" uid="uid://bikvpjcuiu306" path="res://assets/audio/music/polynomial_c.ogg" id="8_tipki"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -21,28 +22,38 @@ sky = SubResource("Sky_sugp2")
 ambient_light_source = 2
 ambient_light_color = Color(0.5609553, 0.5609549, 0.5609547, 1)
 tonemap_mode = 2
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 0.0
+fog_density = 1.0
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_o5qli"]
-vertices = PackedVector3Array(-24.5, 0.10000008, -24.5, -24.5, 0.10000008, 24.5, 24.5, 0.10000008, 24.5, 24.5, 0.10000008, -24.5)
+vertices = PackedVector3Array(-99.5, 0.10000008, -99.5, -99.5, 0.10000008, 99.5, 99.5, 0.10000008, 99.5, 99.5, 0.10000008, -99.5)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 cell_height = 0.05
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sugp2"]
-size = Vector3(50, 1, 50)
+size = Vector3(200, 1, 200)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wfyh"]
-albedo_texture = ExtResource("1_0wfyh")
+shading_mode = 0
+albedo_texture = ExtResource("1_a8y0u")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
 uv1_triplanar = true
 texture_filter = 2
 
 [sub_resource type="BoxMesh" id="BoxMesh_sgp6g"]
-size = Vector3(50, 1, 50)
+size = Vector3(200, 1, 200)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_o6xl0"]
-streams_count = 3
+streams_count = 4
 stream_0/stream = ExtResource("5_tefeu")
 stream_1/stream = ExtResource("5_tbgi4")
 stream_2/stream = ExtResource("7_o6xl0")
+stream_3/stream = ExtResource("8_tipki")
+stream_3/weight = 5.0
+
+[sub_resource type="Theme" id="Theme_eb6dy"]
 
 [node name="Main" type="Node" unique_id=1852786395]
 
@@ -72,26 +83,323 @@ transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49
 [node name="Rat" parent="." unique_id=925541081 instance=ExtResource("2_jyhfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8330898, 1.9073486e-06, -6.2256107)
 
-[node name="CameraRig3D" type="Node3D" parent="." unique_id=1071767058 node_paths=PackedStringArray("camera", "follow_target")]
+[node name="CameraRig3D" type="Node3D" parent="." unique_id=1071767058 node_paths=PackedStringArray("camera", "camera_holder", "follow_target")]
 script = ExtResource("4_jyhfs")
-camera = NodePath("Camera3D")
+camera = NodePath("CameraHolder/Camera3D")
+camera_holder = NodePath("CameraHolder")
 follow_target = NodePath("../Player")
-follow_speed = 1.75
+follow_speed = 2.0
 update_in_physics_process = true
 
-[node name="Camera3D" type="Camera3D" parent="CameraRig3D" unique_id=1281474541]
-transform = Transform3D(1, 0, 0, 0, 0.80434453, 0.5941632, 0, -0.5941632, 0.80434453, 0, 3.5739837, 2.3185132)
+[node name="CameraHolder" type="Node3D" parent="CameraRig3D" unique_id=689277771]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7568594, 0)
 
-[node name="Camera3D3" type="Camera3D" parent="CameraRig3D" unique_id=2127426686]
-transform = Transform3D(1, 0, 0, 0, 0.80434453, 0.5941632, 0, -0.5941632, 0.80434453, 0, 5.8666334, 5.4221725)
-
-[node name="Camera3D2" type="Camera3D" parent="CameraRig3D" unique_id=1705657550]
-transform = Transform3D(0.7071068, -0.5, 0.5, 0, 0.7071068, 0.7071068, -0.7071068, -0.50000006, 0.5, 3.9072766, 7.5495167, 3.9704874)
-projection = 1
-current = true
-size = 15.0
-far = 100.0
+[node name="Camera3D" type="Camera3D" parent="CameraRig3D/CameraHolder" unique_id=1281474541]
+near = 0.1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2425508]
 stream = SubResource("AudioStreamRandomizer_o6xl0")
 autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=983629934]
+
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=1501507657]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="InventoryPanel" type="Panel" parent="CanvasLayer/UI" unique_id=995082832]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -118.0
+offset_right = -9.910034
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/UI/InventoryPanel" unique_id=2077914744]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2" unique_id=1512050884]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer" unique_id=379082729]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer" unique_id=43853275]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer" unique_id=922684279]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer" unique_id=403355455]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
+theme = SubResource("Theme_eb6dy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer" unique_id=1462476722]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1641761183]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer" unique_id=1930353213]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1383035537]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "wood"
+
+[node name="Control" type="Control" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=207545194]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1216729424]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "x166"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1229148578]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer2" unique_id=1791832300]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1025109967]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "wood"
+
+[node name="Control" type="Control" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=255147556]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=168083840]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "x166"
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=705800309]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer3" unique_id=2035808744]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer3/HBoxContainer" unique_id=164932675]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "wood"
+
+[node name="Control" type="Control" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer3/HBoxContainer" unique_id=1030114535]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer3/HBoxContainer" unique_id=1533155148]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "x166"
+
+[node name="MarginContainer4" type="MarginContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1409108750]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer4" unique_id=2050068771]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer4/HBoxContainer" unique_id=979565476]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "wood"
+
+[node name="Control" type="Control" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer4/HBoxContainer" unique_id=177476759]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer4/HBoxContainer" unique_id=1454974864]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "x166"
+
+[node name="MarginContainer5" type="MarginContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=522772883]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer5" unique_id=2009596846]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer5/HBoxContainer" unique_id=860186948]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "wood"
+
+[node name="Control" type="Control" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer5/HBoxContainer" unique_id=237713095]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer5/HBoxContainer" unique_id=1939629792]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "x166"
+
+[node name="MarginContainer6" type="MarginContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1418229251]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer6" unique_id=234775258]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer6/HBoxContainer" unique_id=686680453]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "wood"
+
+[node name="Control" type="Control" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer6/HBoxContainer" unique_id=1624605957]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer6/HBoxContainer" unique_id=102131354]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "x166"
+
+[node name="MarginContainer7" type="MarginContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=2087956942]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer7" unique_id=1121763019]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer7/HBoxContainer" unique_id=887685917]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "wood"
+
+[node name="Control" type="Control" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer7/HBoxContainer" unique_id=1975830170]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/InventoryPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer7/HBoxContainer" unique_id=1215922917]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "x166"
+
+[node name="ChatPanel" type="Panel" parent="CanvasLayer/UI" unique_id=1592334370]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -309.0
+offset_top = -109.0
+offset_right = -134.91003
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/UI/ChatPanel" unique_id=1952630171]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/ChatPanel/MarginContainer2" unique_id=404270043]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer" unique_id=1589859057]
+layout_mode = 2
+text = "General chat"
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer" unique_id=1537799532]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer" unique_id=1353995926]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer/MarginContainer" unique_id=1724529724]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer" unique_id=1798061019]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1267077813]
+layout_mode = 2
+text = "[11:06] Rat damage dealt -1"
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1706348940]
+layout_mode = 2
+text = "[11:06] Rat damage dealt -1"
+
+[node name="Label3" type="Label" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1139958504]
+layout_mode = 2
+text = "[11:06] Rat damage dealt -1"
+
+[node name="Label4" type="Label" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1573950508]
+layout_mode = 2
+text = "[11:06] Rat damage dealt -1"
+
+[node name="Label5" type="Label" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1783274642]
+layout_mode = 2
+text = "[11:06] Rat damage dealt -1"
+
+[node name="Label6" type="Label" parent="CanvasLayer/UI/ChatPanel/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1054836167]
+layout_mode = 2
+text = "[11:06] Rat damage dealt -1"
